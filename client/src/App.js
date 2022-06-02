@@ -1,17 +1,44 @@
 import { useState, useEffect } from "react";
+import Login from "./Components/Login/Login.js";
+import QuoteContainer from "./Components/QuoteContainer.js";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [user, setUser] = useState(null);
+  const [quotes, setQuotes] = useState([])
 
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
+    fetch("/me").then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUser(user));
+      }
+    });
   }, []);
+
+  useEffect(() => {
+    fetch('/quotes')
+    .then(r => r.json())
+    .then(data => setQuotes(data))
+  }, [])
+
+  function handleLogoutClick() {
+    fetch("/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null)
+      }
+    })
+  }
+
+  console.log(quotes)
+  
+  if (!user) return <Login onLogin={setUser}/>
 
   return (
     <div className="App">
-      <h1>Page Count: {count}</h1>
+      <div className="container rounded p-3 my-2 border bg-light text-center">
+        <h1 className='display-1'>QUOTORDLE</h1>
+      </div>
+      <h4>{user.username}<button onClick={handleLogoutClick}>Logout</button></h4>
+      <QuoteContainer quotes={quotes} user={user} />
     </div>
   );
 }
