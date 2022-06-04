@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Login from "./Components/Login/Login.js";
 import QuoteContainer from "./Components/QuoteContainer.js";
+import Leaderboard from "./Components/Leaderboard.js";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [quotes, setQuotes] = useState([])
 
   useEffect(() => {
     fetch("/me").then((response) => {
@@ -14,12 +14,6 @@ function App() {
     });
   }, []);
 
-  useEffect(() => {
-    fetch('/quotes')
-    .then(r => r.json())
-    .then(data => setQuotes(data))
-  }, [])
-
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
@@ -28,17 +22,24 @@ function App() {
     })
   }
 
-  console.log(quotes)
+  function onUpdateUser(updatedUser) {
+    setUser(updatedUser)
+  }
   
   if (!user) return <Login onLogin={setUser}/>
 
   return (
-    <div className="App">
+    <div className="row">
       <div className="container rounded p-3 my-2 border bg-light text-center">
         <h1 className='display-1'>QUOTORDLE</h1>
       </div>
-      <h4>{user.username}<button onClick={handleLogoutClick}>Logout</button></h4>
-      <QuoteContainer quotes={quotes} user={user} />
+      <div className="p text-center">Logged in as: <strong>{user.username}</strong> <button className="btn btn-sm btn-success" onClick={handleLogoutClick}>Logout</button></div>
+      <div className="col-8">
+        <QuoteContainer user={user} onUpdateUser={onUpdateUser} />
+      </div>
+      <div className="col-4">
+        <Leaderboard user={user} />
+      </div>
     </div>
   );
 }

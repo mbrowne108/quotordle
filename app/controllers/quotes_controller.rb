@@ -1,6 +1,6 @@
 class QuotesController < ApplicationController
     def index
-        render json: Quote.all, status: 200
+        render json: Quote.all.sample, status: 200
     end
 
     def show
