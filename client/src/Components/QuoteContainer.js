@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { OverlayTrigger, Popover } from 'react-bootstrap';
 
 function QuoteContainer({ user, onUpdateUser }) {
   const [hintCount, setHintCount] = useState(0);
@@ -47,24 +48,35 @@ function QuoteContainer({ user, onUpdateUser }) {
     hintCount === 3 ? setHintCount(3) : setHintCount(() => hintCount + 1)
   }
 
+  const popover = (
+    <Popover id="popover">
+      <Popover.Body>
+        Answers are not case sentitive, but you MUST have correct spelling and punctuation (down to the proper use of colons or the use of II instead of 2, for example)
+      </Popover.Body>
+    </Popover>
+  )
+
   return (
     <div className="card">
       <p className="card-header h5"><i>"{quote.quote}"</i></p>
-      <div className="card-body">
-        <p className="h6">{hintCount >= 1 ? `Year: ${quote.year}` : null}</p>
-        <p className="h6">{hintCount >= 2 ? `Character: ${quote.character}` : null}</p>
-        <p className="h6">{hintCount >= 3 ? `Actor: ${quote.actor}` : null}</p>
-        <button className="btn btn-outline-success" onClick={hintClick}>Hint</button>
-      </div>
-      <form className="row" onSubmit={formSubmit}>
-        <div className="col-2">
-          <input type="text" name="movie" value={movieGuess} onChange={handleChange}></input>
+      <table className="p-2">
+        <td className="h6 list-group-item">{hintCount >= 1 ? `Year: ${quote.year}` : ' '}</td>
+        <td className="h6 list-group-item">{hintCount >= 2 ? `Character: ${quote.character}` : ' '}</td>
+        <td className="h6 list-group-item">{hintCount >= 3 ? `Actor: ${quote.actor}` : ' '}</td>
+        <button className="btn btn-outline-success col-4" onClick={hintClick}>Hint</button>
+      </table>
+      <form className="row mt-4" onSubmit={formSubmit}>
+        <div className="col-4">
+          <input type="text" name="movie" value={movieGuess} onChange={handleChange} className="col-12"></input>
         </div>
-        <div className="col-1">
+        <div className="col-2">
           <button className="btn btn-sm btn-success" type="submit">Guess</button>
+          <OverlayTrigger trigger="hover" overlay={popover}>
+            <h6 className="badge bg-light">❓</h6>
+          </OverlayTrigger>
         </div>
         {afterGuess ? 
-          <div className="card-footer">
+          <div className={movieGuess.toLowerCase() === quote.movie.toLowerCase() ? 'alert alert-success' : 'alert alert-danger'}>
             <p>{movieGuess.toLowerCase() === quote.movie.toLowerCase() ? `${quote.movie} is correct!` : `Incorrect. The correct answer was ${quote.movie}.`}</p>
             <button className="btn btn-success" onClick={nextQuestion}>Play again!</button>
           </div> : null 

@@ -9,6 +9,7 @@ function Login({ onLogin }) {
     <div>
       <div className="container rounded p-3 my-2 border bg-light text-center">
         <h1 className='display-1'>QUOTORDLE</h1>
+        <p className="display-6 fst-italic fst-light"><small>Guess the movie based on a famous quote!</small></p>
       </div>
       <div className="container card text-center col-sm-4">
         {showLogin ? (
