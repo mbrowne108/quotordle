@@ -38,7 +38,7 @@ Quote.create!(quote: "Louis, I think this is the beginning of a beautiful friend
 Quote.create!(quote: "A census taker once tried to test me. I ate his liver with some fava beans and a nice Chianti.", character: "Hannibal Lecter", actor: "Anthony Hopkins", movie: "The Silence of the Lambs", year: 1991)
 Quote.create!(quote: "Bond. James Bond.", character: "James Bond", actor: "Sean Connery", movie: "Dr. No", year: 1962)
 Quote.create!(quote: "There's no place like home.", character: "Dorothy Gale", actor: "Judy Garland", movie: "The Wizard of Oz", year: 1939)
-Quote.create!(quote: "I am big! It's the pictures that got small.", character: "Norma Desmond", actor: "Gloria Swanson" "Sunset Boulevard", year: 1950)
+Quote.create!(quote: "I am big! It's the pictures that got small.", character: "Norma Desmond", actor: "Gloria Swanson", movie: "Sunset Boulevard", year: 1950)
 Quote.create!(quote: "Show me the money!", character: "Rod Tidwell", actor: "Cuba Gooding Jr.", movie: "Jerry Maguire", year: 1996)
 Quote.create!(quote: "Why don't you come up sometime and see me?", character: "Lady Lou", actor: "Mae West", movie: "She Done Him Wrong", year: 1933)
 Quote.create!(quote: "I'm walkin' here! I'm walkin' here!", character: "'Ratso' Rizzo", actor: "Dustin Hoffman", movie: "Midnight Cowboy", year: 1969)

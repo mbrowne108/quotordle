@@ -41,7 +41,7 @@ function SignUpForm({ onLogin }) {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <button type="submit" className='btn btn-primary'>{isLoading ? "Loading..." : "Sign Up"}</button>
+      <button type="submit" className='btn btn-success'>{isLoading ? "Loading..." : "Sign Up"}</button>
       <div>
         {errors ? errors.map((err) => (
           <p className='alert alert-danger alert-dismissible fade show mb-3' key={err}>

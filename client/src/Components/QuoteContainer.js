@@ -57,13 +57,13 @@ function QuoteContainer({ user, onUpdateUser }) {
   )
 
   return (
-    <div className="card">
+    <div className="card bg-dark ps-4 mb-4">
       <p className="card-header h5"><i>"{quote.quote}"</i></p>
-      <table className="p-2">
-        <td className="h6 list-group-item">{hintCount >= 1 ? `Year: ${quote.year}` : ' '}</td>
-        <td className="h6 list-group-item">{hintCount >= 2 ? `Character: ${quote.character}` : ' '}</td>
-        <td className="h6 list-group-item">{hintCount >= 3 ? `Actor: ${quote.actor}` : ' '}</td>
-        <button className="btn btn-outline-success col-4" onClick={hintClick}>Hint</button>
+      <table className="p-2 bg-dark">
+        <td className="h6 list-group-item bg-dark text-light border col-6">{hintCount >= 1 ? `Year: ${quote.year}` : ' '}</td>
+        <td className="h6 list-group-item bg-dark text-light border col-6">{hintCount >= 2 ? `Character: ${quote.character}` : ' '}</td>
+        <td className="h6 list-group-item bg-dark text-light border col-6">{hintCount >= 3 ? `Actor: ${quote.actor}` : ' '}</td>
+        <button className="btn btn-sm btn-success col-2" onClick={hintClick}>Hint</button>
       </table>
       <form className="row mt-4" onSubmit={formSubmit}>
         <div className="col-4">
@@ -72,16 +72,18 @@ function QuoteContainer({ user, onUpdateUser }) {
         <div className="col-2">
           <button className="btn btn-sm btn-success" type="submit">Guess</button>
           <OverlayTrigger trigger="hover" overlay={popover}>
-            <h6 className="badge bg-light">❓</h6>
+            <h6 className="badge bg-dark">❓</h6>
           </OverlayTrigger>
         </div>
+      </form>
+      <div className="col-5 mt-2">
         {afterGuess ? 
           <div className={movieGuess.toLowerCase() === quote.movie.toLowerCase() ? 'alert alert-success' : 'alert alert-danger'}>
             <p>{movieGuess.toLowerCase() === quote.movie.toLowerCase() ? `${quote.movie} is correct!` : `Incorrect. The correct answer was ${quote.movie}.`}</p>
             <button className="btn btn-success" onClick={nextQuestion}>Play again!</button>
           </div> : null 
         }
-      </form>
+      </div>
     </div>
   );
 }

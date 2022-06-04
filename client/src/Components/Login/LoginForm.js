@@ -25,25 +25,24 @@ function LoginForm({ onLogin }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="bg-dark text-light">
       <div className='mb-3'>
         <h4>Login</h4>
         <label htmlFor="username">Username</label>
         <input
           type="text"
           id="username"
-          className='form-control'
-          autoComplete="off"
+          className='form-control bg-light'
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <div className='mb-3'>
-        <button variant="fill" color="primary" type="submit" className='btn btn-primary'>
+        <button variant="fill" color="primary" type="submit" className='btn btn-success'>
           {isLoading ? "Loading..." : "Login"}
         </button>
       </div>
-      <div>
+      <div className="bg-dark">
         {errors ? errors.map((err) => (
           <p className='alert alert-danger alert-dismissible fade show mb-3' key={err}>
             {err} 

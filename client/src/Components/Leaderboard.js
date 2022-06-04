@@ -23,14 +23,14 @@ function Leaderboard({ user }) {
     return (
         <div>
             <h5>Leaderboard</h5>
-            <table className="table table-hover">
+            <table className="table table-hover table-bordered">
                 <thead>
-                    <tr className="">
-                        <th className="h6">User</th>
-                        <th className="h6">Score</th>
-                        <th className="h6">Weighted Score {
+                    <tr className="text-light">
+                        <th>User</th>
+                        <th>Score</th>
+                        <th>Weighted Score {
                             <OverlayTrigger trigger="hover" overlay={popover}>
-                                <p className="badge h6">❓</p>
+                                <th className="badge">❓</th>
                             </OverlayTrigger>
                         }</th>
                     </tr>
@@ -38,7 +38,7 @@ function Leaderboard({ user }) {
                 <tbody>
                     {sortedAllUsers.map((u) => {
                         return (
-                            <tr className={`${u.id === user.id ? "bg-success" : "bg-light"}`}>
+                            <tr className={`${u.id === user.id ? "bg-success bg-gradient" : "bg-secondary bg-gradient"}`}>
                                 <td className="">{u.username}</td>
                                 <td className="">{u.score}</td>
                                 <td className=""><strong>{u.weighted_score}</strong></td>
