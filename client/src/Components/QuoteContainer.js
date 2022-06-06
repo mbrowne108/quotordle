@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { OverlayTrigger, Popover } from 'react-bootstrap';
 
 function QuoteContainer({ user, onUpdateUser }) {
   const [hintCount, setHintCount] = useState(0);
   const [movieGuess, setMovieGuess] = useState('')
   const [afterGuess, setAfterGuess] = useState(false)
+  const [correctAnswer, setCorrectAnswer] = useState(false)
   const [newQuote, setNewQuote] = useState(false)
   const [quote, setQuote] = useState([])
 
@@ -20,8 +20,10 @@ function QuoteContainer({ user, onUpdateUser }) {
 
   function formSubmit(e) {
     e.preventDefault()
+    const answers = quote.title.map((t) => t.toLowerCase())
     setAfterGuess(true)
-    if (movieGuess.toLowerCase() === quote.movie.toLowerCase()) {
+    if (answers.includes(movieGuess.toLowerCase())) {
+      setCorrectAnswer(true)
       fetch(`/users/${user.id}`, {
         method: "PATCH",
         headers: {
@@ -39,6 +41,7 @@ function QuoteContainer({ user, onUpdateUser }) {
 
   function nextQuestion(e) {
     setAfterGuess(false)
+    setCorrectAnswer(false)
     setHintCount(0)
     setMovieGuess('')
     setNewQuote(!newQuote)
@@ -47,23 +50,17 @@ function QuoteContainer({ user, onUpdateUser }) {
   function hintClick(e) {
     hintCount === 3 ? setHintCount(3) : setHintCount(() => hintCount + 1)
   }
-
-  const popover = (
-    <Popover id="popover">
-      <Popover.Body>
-        Answers are not case sentitive, but you MUST have correct spelling and punctuation (down to the proper use of colons or the use of II instead of 2, for example)
-      </Popover.Body>
-    </Popover>
-  )
-
+  
   return (
     <div className="card bg-dark ps-4 mb-4">
       <p className="card-header h5"><i>"{quote.quote}"</i></p>
       <table className="p-2 bg-dark">
-        <td className="h6 list-group-item bg-dark text-light border col-6">{hintCount >= 1 ? `Year: ${quote.year}` : ' '}</td>
-        <td className="h6 list-group-item bg-dark text-light border col-6">{hintCount >= 2 ? `Character: ${quote.character}` : ' '}</td>
-        <td className="h6 list-group-item bg-dark text-light border col-6">{hintCount >= 3 ? `Actor: ${quote.actor}` : ' '}</td>
-        <button className="btn btn-sm btn-success col-2" onClick={hintClick}>Hint</button>
+        <tbody>
+          <tr className="h6 list-group-item bg-dark text-light border col-6">{hintCount >= 1 ? `Year: ${quote.year}` : null}</tr>
+          <tr className="h6 list-group-item bg-dark text-light border col-6">{hintCount >= 2 ? `Character: ${quote.character}` : null}</tr>
+          <tr className="h6 list-group-item bg-dark text-light border col-6">{hintCount >= 3 ? `Actor: ${quote.actor}` : null}</tr>
+          <button className="btn btn-sm btn-success col-2" onClick={hintClick}>Hint</button>
+        </tbody>
       </table>
       <form className="row mt-4" onSubmit={formSubmit}>
         <div className="col-4">
@@ -71,15 +68,12 @@ function QuoteContainer({ user, onUpdateUser }) {
         </div>
         <div className="col-2">
           <button className="btn btn-sm btn-success" type="submit">Guess</button>
-          <OverlayTrigger trigger="hover" overlay={popover}>
-            <h6 className="badge bg-dark">❓</h6>
-          </OverlayTrigger>
         </div>
       </form>
       <div className="col-5 mt-2">
         {afterGuess ? 
-          <div className={movieGuess.toLowerCase() === quote.movie.toLowerCase() ? 'alert alert-success' : 'alert alert-danger'}>
-            <p>{movieGuess.toLowerCase() === quote.movie.toLowerCase() ? `${quote.movie} is correct!` : `Incorrect. The correct answer was ${quote.movie}.`}</p>
+          <div className={correctAnswer ? 'alert alert-success' : 'alert alert-danger'}>
+            <p>{correctAnswer ? `${quote.title[0]} is correct!` : `Incorrect. The correct answer was ${quote.title[0]}.`}</p>
             <button className="btn btn-success" onClick={nextQuestion}>Play again!</button>
           </div> : null 
         }

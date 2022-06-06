@@ -15,6 +15,6 @@ class QuotesController < ApplicationController
     end
 
     def site_params
-        params.permit(:quote, :movie, :year, :character, :actor)
+        params.permit(:quote, :title, :year, :character, :actor)
     end
 end

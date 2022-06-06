@@ -1,3 +1,3 @@
 class QuoteSerializer < ActiveModel::Serializer
-  attributes :id, :quote, :movie, :year, :character, :actor
+  attributes :id, :quote, :title, :year, :character, :actor
 end
