@@ -3,6 +3,8 @@
 
 A Wordle-like guessing game where you are given a famous movie quote and have to guess the move it is from.
 
+Deployed app can be viewed at [https://quotordle.herokuapp.com/](https://quotordle.herokuapp.com/). Use admin login to view. UN: mbrowne
+
 ## Technologies used
 
 In this project I use the following technologies:
