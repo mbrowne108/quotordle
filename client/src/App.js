@@ -26,7 +26,7 @@ function App() {
     setUser(updatedUser)
   }
   
-  if (!user) return <Login onLogin={setUser}/>
+  if (!user) return <Login onLogin={setUser} />
 
   return (
     <div className="bg-dark bg-gradient text-light">
