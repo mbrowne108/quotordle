@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function LoginForm({ onLogin }) {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("mbrowne");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
